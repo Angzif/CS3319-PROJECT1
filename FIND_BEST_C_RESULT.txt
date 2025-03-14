@@ -1,0 +1,51 @@
+Loading labels from: dataset/processed_data\train_labels.txt
+Loading features from: dataset/processed_data\train_features.txt
+Fitting 5 folds for each of 9 candidates, totalling 45 fits
+[CV 1/5] END C=1e-06, decision_function_shape=ovr, kernel=linear;, score=0.045 total time=19.7min
+[CV 2/5] END C=1e-06, decision_function_shape=ovr, kernel=linear;, score=0.045 total time=20.1min
+[CV 3/5] END C=1e-06, decision_function_shape=ovr, kernel=linear;, score=0.044 total time=20.2min
+[CV 4/5] END C=1e-06, decision_function_shape=ovr, kernel=linear;, score=0.044 total time=20.3min
+[CV 1/5] END C=1e-05, decision_function_shape=ovr, kernel=linear;, score=0.782 total time=14.1min
+[CV 2/5] END C=1e-05, decision_function_shape=ovr, kernel=linear;, score=0.786 total time=14.2min
+[CV 3/5] END C=1e-05, decision_function_shape=ovr, kernel=linear;, score=0.788 total time=14.2min
+[CV 5/5] END C=1e-06, decision_function_shape=ovr, kernel=linear;, score=0.044 total time=19.7min
+[CV 1/5] END C=0.0001, decision_function_shape=ovr, kernel=linear;, score=0.918 total time= 5.5min
+[CV 2/5] END C=0.0001, decision_function_shape=ovr, kernel=linear;, score=0.920 total time= 4.7min
+[CV 3/5] END C=0.0001, decision_function_shape=ovr, kernel=linear;, score=0.921 total time= 4.9min
+[CV 4/5] END C=1e-05, decision_function_shape=ovr, kernel=linear;, score=0.785 total time=12.6min
+[CV 5/5] END C=1e-05, decision_function_shape=ovr, kernel=linear;, score=0.792 total time=12.5min
+[CV 4/5] END C=0.0001, decision_function_shape=ovr, kernel=linear;, score=0.918 total time= 4.7min
+[CV 5/5] END C=0.0001, decision_function_shape=ovr, kernel=linear;, score=0.918 total time= 4.6min
+[CV 1/5] END C=0.001, decision_function_shape=ovr, kernel=linear;, score=0.923 total time= 3.1min
+[CV 2/5] END C=0.001, decision_function_shape=ovr, kernel=linear;, score=0.931 total time= 3.2min
+[CV 3/5] END C=0.001, decision_function_shape=ovr, kernel=linear;, score=0.933 total time= 2.9min
+[CV 4/5] END C=0.001, decision_function_shape=ovr, kernel=linear;, score=0.930 total time= 3.1min
+[CV 5/5] END C=0.001, decision_function_shape=ovr, kernel=linear;, score=0.925 total time= 3.2min
+[CV 1/5] END C=0.01, decision_function_shape=ovr, kernel=linear;, score=0.915 total time= 3.2min
+[CV 2/5] END C=0.01, decision_function_shape=ovr, kernel=linear;, score=0.929 total time= 2.7min
+[CV 3/5] END C=0.01, decision_function_shape=ovr, kernel=linear;, score=0.930 total time= 3.1min
+[CV 4/5] END C=0.01, decision_function_shape=ovr, kernel=linear;, score=0.924 total time= 3.2min
+[CV 5/5] END C=0.01, decision_function_shape=ovr, kernel=linear;, score=0.918 total time= 3.2min
+[CV 1/5] END C=0.1, decision_function_shape=ovr, kernel=linear;, score=0.915 total time= 2.9min
+[CV 2/5] END C=0.1, decision_function_shape=ovr, kernel=linear;, score=0.929 total time= 3.1min
+[CV 3/5] END C=0.1, decision_function_shape=ovr, kernel=linear;, score=0.930 total time= 3.3min
+[CV 4/5] END C=0.1, decision_function_shape=ovr, kernel=linear;, score=0.924 total time= 3.2min
+[CV 5/5] END C=0.1, decision_function_shape=ovr, kernel=linear;, score=0.917 total time= 3.1min
+[CV 1/5] END C=1, decision_function_shape=ovr, kernel=linear;, score=0.915 total time= 2.9min
+[CV 2/5] END C=1, decision_function_shape=ovr, kernel=linear;, score=0.928 total time= 3.2min
+[CV 3/5] END C=1, decision_function_shape=ovr, kernel=linear;, score=0.930 total time= 3.2min
+[CV 4/5] END C=1, decision_function_shape=ovr, kernel=linear;, score=0.924 total time= 3.1min
+[CV 5/5] END C=1, decision_function_shape=ovr, kernel=linear;, score=0.917 total time= 2.9min
+[CV 1/5] END C=10, decision_function_shape=ovr, kernel=linear;, score=0.915 total time= 3.2min
+[CV 2/5] END C=10, decision_function_shape=ovr, kernel=linear;, score=0.927 total time= 3.2min
+[CV 3/5] END C=10, decision_function_shape=ovr, kernel=linear;, score=0.928 total time= 3.1min
+[CV 4/5] END C=10, decision_function_shape=ovr, kernel=linear;, score=0.924 total time= 2.8min
+[CV 5/5] END C=10, decision_function_shape=ovr, kernel=linear;, score=0.915 total time= 3.3min
+[CV 1/5] END C=100, decision_function_shape=ovr, kernel=linear;, score=0.915 total time= 3.3min
+[CV 2/5] END C=100, decision_function_shape=ovr, kernel=linear;, score=0.927 total time= 3.3min
+[CV 3/5] END C=100, decision_function_shape=ovr, kernel=linear;, score=0.928 total time= 3.0min
+[CV 5/5] END C=100, decision_function_shape=ovr, kernel=linear;, score=0.915 total time= 2.1min
+[CV 4/5] END C=100, decision_function_shape=ovr, kernel=linear;, score=0.924 total time= 2.2min
+Best parameters:  {'C': 0.001, 'decision_function_shape': 'ovr', 'kernel': 'linear'}
+Best cross-validation score:  0.928239550934982
+Best C parameter: 0.001
