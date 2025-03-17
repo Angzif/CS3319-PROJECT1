@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import cross_val_score, KFold
 import os
 
-def svm_classifier(train_features, train_labels, test_features, test_labels, C=1.0, k_fold=5):
+def svm_classifier(train_features, train_labels, test_features, test_labels, C=1e-3, k_fold=5):
     """
     使用线性SVM进行分类
     :param train_features: 训练集特征
@@ -47,4 +47,4 @@ if __name__ == "__main__":
     test_labels = np.loadtxt(os.path.join(output_dir, "test_labels.txt"))
 
     # SVM分类
-    svm_classifier(train_features, train_labels, test_features, test_labels, C=1.0, k_fold=5)
+    svm_classifier(train_features, train_labels, test_features, test_labels, C=1e-3, k_fold=5)

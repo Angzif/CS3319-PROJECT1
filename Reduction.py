@@ -8,6 +8,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 import time
+import random
 
 # 设置随机种子
 random_state = 42
@@ -37,6 +38,90 @@ def benchmark():
     test_score = svm.score(test_feature, test_label)
     print(f"原始特征的性能 - 训练集准确率: {train_score:.4f}, 测试集准确率: {test_score:.4f}")
     return train_score, test_score
+
+def genetic_reduction(n_components, population_size=20, num_generations=10):
+    """
+    使用遗传算法进行特征选择
+    :param n_components: 目标特征数量
+    :param population_size: 种群大小
+    :param num_generations: 迭代次数
+    :return: 选择的特征索引
+    """
+    print(f"使用遗传算法选择 {n_components} 个特征...")
+
+    # 初始化种群
+    num_features = train_feature.shape[1]
+    population = [np.random.choice([0, 1], size=num_features, p=[0.5, 0.5]) for _ in range(population_size)]
+
+    def fitness(individual):
+        """
+        适应度函数：使用 SVM 分类器的准确率
+        :param individual: 个体（二进制编码）
+        :return: 适应度值
+        """
+        selected_features = individual == 1
+        if np.sum(selected_features) == 0:  # 如果没有选择任何特征，适应度为 0
+            return 0
+        X_train_selected = train_feature[:, selected_features]
+        X_test_selected = test_feature[:, selected_features]
+        svm = SVC(kernel='linear', random_state=random_state)
+        svm.fit(X_train_selected, train_label)
+        return svm.score(X_test_selected, test_label)
+
+    for generation in range(num_generations):
+        print(f"Generation {generation + 1}/{num_generations}")
+
+        # 计算适应度
+        fitness_scores = [fitness(individual) for individual in population]
+
+        # 选择（轮盘赌选择）
+        fitness_scores = np.array(fitness_scores)
+        fitness_scores = fitness_scores / np.sum(fitness_scores)  # 归一化
+        selected_indices = np.random.choice(range(population_size), size=population_size, p=fitness_scores)
+        selected_population = [population[i] for i in selected_indices]
+
+        # 交叉（单点交叉）
+        new_population = []
+        for i in range(0, population_size, 2):
+            parent1 = selected_population[i]
+            parent2 = selected_population[i + 1] if i + 1 < population_size else selected_population[0]
+            crossover_point = random.randint(1, num_features - 1)
+            child1 = np.concatenate([parent1[:crossover_point], parent2[crossover_point:]])
+            child2 = np.concatenate([parent2[:crossover_point], parent1[crossover_point:]])
+            new_population.extend([child1, child2])
+
+        # 变异（随机翻转）
+        for individual in new_population:
+            if random.random() < 0.1:  # 变异概率
+                mutation_point = random.randint(0, num_features - 1)
+                individual[mutation_point] = 1 - individual[mutation_point]
+
+        population = new_population
+
+    # 选择最优个体
+    best_individual = max(population, key=fitness)
+    selected_features = best_individual == 1
+    print("遗传算法特征选择完成！")
+    return selected_features
+def evaluate_genetic_reduction(n_components):
+    """
+    评估遗传算法降维
+    :param n_components: 目标特征数量
+    :return: 训练集和测试集准确率，以及耗时
+    """
+    start_time = time.time()
+    selected_features = genetic_reduction(n_components)
+    train_F = train_feature[:, selected_features]
+    test_F = test_feature[:, selected_features]
+    end_time = time.time()
+
+    # 使用 SVM 评估降维后的特征
+    svm = SVC(kernel='linear', random_state=random_state)
+    svm.fit(train_F, train_label)
+    train_score = svm.score(train_F, train_label)
+    test_score = svm.score(test_F, test_label)
+    print(f"遗传算法降维到 {n_components} 个特征 - 训练集准确率: {train_score:.4f}, 测试集准确率: {test_score:.4f}")
+    return train_score, test_score, end_time - start_time
 
 def pca_reduction(n_components):
     """
@@ -157,6 +242,8 @@ def evaluate_reduction(method, n_components):
         train_F, test_F, time_cost = lle_reduction(n_components)
     elif method == 'autoencoder':
         train_F, test_F, time_cost = autoencoder_reduction(n_components)
+    elif method == 'genetic':
+        train_F, test_F, time_cost = evaluate_genetic_reduction(n_components)
     else:
         raise ValueError("不支持的降维方法")
 
@@ -193,6 +280,6 @@ if __name__ == "__main__":
     #benchmark()
 
     # 比较不同降维方法的时间性能
-    methods = ['lle', 'autoencoder']
+    methods = ['genetic']
     dim_list = [512, 256, 128, 64, 32, 16]  # 目标维度列表
     compare_time(methods, dim_list)
